@@ -1,4 +1,4 @@
-package com.app.entities;
+package com.dial100.entities;
 
 import java.time.LocalDateTime;
 import java.util.List;

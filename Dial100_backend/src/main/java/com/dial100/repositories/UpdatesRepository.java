@@ -1,8 +1,8 @@
-package com.app.repositories;
+package com.dial100.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.app.entities.Updates;
+import com.dial100.entities.Updates;
 
 public interface UpdatesRepository extends JpaRepository<Updates, Integer> {
 }

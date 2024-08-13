@@ -1,4 +1,4 @@
-package com.app;
+package com.dial100;
 
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;

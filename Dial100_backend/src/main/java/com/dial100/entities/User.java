@@ -1,4 +1,4 @@
-package com.app.entities;
+package com.dial100.entities;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -38,7 +38,8 @@ public class User {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "authority_id") // foreign key in the Updates entity
 	private List<Updates> updates;
-
+	
+	public User() {}
 	public User(Integer userId, String name, String email, String password, String phone, String address, Role role,
 			List<Complaint> complaints, List<Investigation> investigations, List<Updates> updates) {
 		super();
