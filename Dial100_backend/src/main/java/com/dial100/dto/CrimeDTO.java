@@ -9,18 +9,15 @@ public class CrimeDTO {
 	private CrimeType crimeType;
 	private String description;
 	private String penalty;
-	private List<ComplaintDTO> complaints;
 	
 	public CrimeDTO() {}
 
-	public CrimeDTO(Integer crimeId, CrimeType crimeType, String description, String penalty,
-			List<ComplaintDTO> complaints) {
+	public CrimeDTO(Integer crimeId, CrimeType crimeType, String description, String penalty) {
 		super();
 		this.crimeId = crimeId;
 		this.crimeType = crimeType;
 		this.description = description;
 		this.penalty = penalty;
-		this.complaints = complaints;
 	}
 
 	public Integer getCrimeId() {
@@ -53,14 +50,6 @@ public class CrimeDTO {
 
 	public void setPenalty(String penalty) {
 		this.penalty = penalty;
-	}
-
-	public List<ComplaintDTO> getComplaints() {
-		return complaints;
-	}
-
-	public void setComplaints(List<ComplaintDTO> complaints) {
-		this.complaints = complaints;
 	}
 
 }

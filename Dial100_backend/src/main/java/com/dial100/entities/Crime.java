@@ -27,6 +27,8 @@ public class Crime {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "crime_id") // foreign key in the Complaint entity
 	private List<Complaint> complaints;
+	
+	public Crime() {}
 
 	public Crime(Integer crimeId, CrimeType crimeType, String description, String penalty, List<Complaint> complaints) {
 		super();

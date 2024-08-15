@@ -1,6 +1,6 @@
 package com.dial100.entities;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,83 +9,97 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Complaint {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer complaintId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer complaintId;
 
-	private String description;
-	private LocalDateTime dateFiled;
-	private String status;
+    private String description;
+    private LocalDate dateFiled; // Changed from LocalDateTime to LocalDate
+    private String status;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "complaint_id") // foreign key in the Evidence entity
-	private List<Evidence> evidenceList;
+    @ManyToOne
+    @JoinColumn(name = "user_id") // Foreign key column in Complaint table
+    private User user;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "complaint_id") // foreign key in the Updates entity
-	private List<Updates> updates;
+    @ManyToOne
+    @JoinColumn(name = "crime_id") // Foreign key column in Complaint table for Crime
+    private Crime crime;
 
-	public Complaint(Integer complaintId, String description, LocalDateTime dateFiled, String status,
-			List<Evidence> evidenceList, List<Updates> updates) {
-		super();
-		this.complaintId = complaintId;
-		this.description = description;
-		this.dateFiled = dateFiled;
-		this.status = status;
-		this.evidenceList = evidenceList;
-		this.updates = updates;
-	}
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "complaint_id") // Foreign key in the Evidence entity
+    private List<Evidence> evidenceList;
 
-	public Integer getComplaintId() {
-		return complaintId;
-	}
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "complaint_id") // Foreign key in the Updates entity
+    private List<Updates> updates;
 
-	public void setComplaintId(Integer complaintId) {
-		this.complaintId = complaintId;
-	}
+    // Getters and setters
+    public Integer getComplaintId() {
+        return complaintId;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setComplaintId(Integer complaintId) {
+        this.complaintId = complaintId;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public LocalDateTime getDateFiled() {
-		return dateFiled;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setDateFiled(LocalDateTime dateFiled) {
-		this.dateFiled = dateFiled;
-	}
+    public LocalDate getDateFiled() {
+        return dateFiled;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setDateFiled(LocalDate dateFiled) {
+        this.dateFiled = dateFiled;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public List<Evidence> getEvidenceList() {
-		return evidenceList;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setEvidenceList(List<Evidence> evidenceList) {
-		this.evidenceList = evidenceList;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public List<Updates> getUpdates() {
-		return updates;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public void setUpdates(List<Updates> updates) {
-		this.updates = updates;
-	}
+    public Crime getCrime() {
+        return crime;
+    }
 
+    public void setCrime(Crime crime) {
+        this.crime = crime;
+    }
+
+    public List<Evidence> getEvidenceList() {
+        return evidenceList;
+    }
+
+    public void setEvidenceList(List<Evidence> evidenceList) {
+        this.evidenceList = evidenceList;
+    }
+
+    public List<Updates> getUpdates() {
+        return updates;
+    }
+
+    public void setUpdates(List<Updates> updates) {
+        this.updates = updates;
+    }
 }

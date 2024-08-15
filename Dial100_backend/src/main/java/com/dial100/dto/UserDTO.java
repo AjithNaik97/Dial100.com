@@ -1,7 +1,5 @@
 package com.dial100.dto;
 
-import java.util.List;
-
 import com.dial100.entities.Role;
 
 public class UserDTO {
@@ -10,26 +8,22 @@ public class UserDTO {
 	private String name;
 	private String email;
 	private String phone;
-	private String address;
+	private String address; // Added to match the form
+	private String password;
 	private Role role;
-	private List<ComplaintDTO> complaints;
-	private List<InvestigationDTO> investigations;
-	private List<UpdatesDTO> updates;
-	
-	public UserDTO() {}
 
-	public UserDTO(Integer userId, String name, String email, String phone, String address, Role role,
-			List<ComplaintDTO> complaints, List<InvestigationDTO> investigations, List<UpdatesDTO> updates) {
-		super();
+	public UserDTO() {
+	}
+
+	public UserDTO(Integer userId, String name, String email, String phone, String address, String password,
+			Role role) {
 		this.userId = userId;
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
 		this.address = address;
+		this.password = password;
 		this.role = role;
-		this.complaints = complaints;
-		this.investigations = investigations;
-		this.updates = updates;
 	}
 
 	public Integer getUserId() {
@@ -72,6 +66,14 @@ public class UserDTO {
 		this.address = address;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public Role getRole() {
 		return role;
 	}
@@ -79,29 +81,4 @@ public class UserDTO {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-
-	public List<ComplaintDTO> getComplaints() {
-		return complaints;
-	}
-
-	public void setComplaints(List<ComplaintDTO> complaints) {
-		this.complaints = complaints;
-	}
-
-	public List<InvestigationDTO> getInvestigations() {
-		return investigations;
-	}
-
-	public void setInvestigations(List<InvestigationDTO> investigations) {
-		this.investigations = investigations;
-	}
-
-	public List<UpdatesDTO> getUpdates() {
-		return updates;
-	}
-
-	public void setUpdates(List<UpdatesDTO> updates) {
-		this.updates = updates;
-	}
-
 }
