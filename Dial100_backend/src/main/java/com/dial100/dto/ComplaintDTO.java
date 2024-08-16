@@ -10,13 +10,11 @@ public class ComplaintDTO {
     private String status;
     private Integer userId; // Add userId
     private Integer crimeId; // Add crimeId
-    private List<EvidenceDTO> evidenceList;
-    private List<UpdatesDTO> updates;
 
     public ComplaintDTO() {}
 
     public ComplaintDTO(Integer complaintId, String description, LocalDate dateFiled, String status,
-                        Integer userId, Integer crimeId, List<EvidenceDTO> evidenceList, List<UpdatesDTO> updates) {
+                        Integer userId, Integer crimeId) {
         super();
         this.complaintId = complaintId;
         this.description = description;
@@ -24,8 +22,6 @@ public class ComplaintDTO {
         this.status = status;
         this.userId = userId; // Initialize userId
         this.crimeId = crimeId; // Initialize crimeId
-        this.evidenceList = evidenceList;
-        this.updates = updates;
     }
 
     public Integer getComplaintId() {
@@ -74,21 +70,5 @@ public class ComplaintDTO {
 
     public void setCrimeId(Integer crimeId) {
         this.crimeId = crimeId;
-    }
-
-    public List<EvidenceDTO> getEvidenceList() {
-        return evidenceList;
-    }
-
-    public void setEvidenceList(List<EvidenceDTO> evidenceList) {
-        this.evidenceList = evidenceList;
-    }
-
-    public List<UpdatesDTO> getUpdates() {
-        return updates;
-    }
-
-    public void setUpdates(List<UpdatesDTO> updates) {
-        this.updates = updates;
     }
 }

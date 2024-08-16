@@ -8,7 +8,7 @@ function ComplaintForm() {
     description: '',
     status: '',
     crimeId: '',
-    crimeType: 'VIOLENT',
+    crimeType: '',
     crimeDescription: '',
     penalty: ''
   });

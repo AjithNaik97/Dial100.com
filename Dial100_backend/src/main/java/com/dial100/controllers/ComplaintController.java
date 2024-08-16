@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dial100.dto.ComplaintDTO;
+import com.dial100.dto.FetchComplaintDTO;
 import com.dial100.services.ComplaintService;
 
 @RestController
@@ -30,10 +31,16 @@ public class ComplaintController {
 		List<ComplaintDTO> complaints = complaintService.getAllComplaints();
 		return ResponseEntity.ok(complaints);
 	}
+	
+	@GetMapping("/user/{userId}")
+	public ResponseEntity<List<ComplaintDTO>> getComplaintsByUserId(@PathVariable Integer userId) {
+	    List<ComplaintDTO> complaints = complaintService.getComplaintsByUserId(userId);
+	    return ResponseEntity.ok(complaints);
+	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ComplaintDTO> getComplaintById(@PathVariable Integer id) {
-		ComplaintDTO complaint = complaintService.getComplaintById(id);
+	public ResponseEntity<FetchComplaintDTO> getComplaintById(@PathVariable Integer id) {
+		FetchComplaintDTO complaint = complaintService.getComplaintById(id);
 		return ResponseEntity.ok(complaint);
 	}
 

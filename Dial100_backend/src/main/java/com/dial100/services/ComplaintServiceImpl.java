@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dial100.dto.ComplaintDTO;
+import com.dial100.dto.CrimeDTO;
+import com.dial100.dto.FetchComplaintDTO;
 import com.dial100.entities.Complaint;
 import com.dial100.entities.Crime; // Import the Crime entity
 import com.dial100.entities.User;
@@ -37,12 +39,29 @@ public class ComplaintServiceImpl implements ComplaintService {
         return complaints.stream().map(complaint -> modelMapper.map(complaint, ComplaintDTO.class))
                 .collect(Collectors.toList());
     }
+    
+    @Override
+    public List<ComplaintDTO> getComplaintsByUserId(Integer userId) {
+        List<Complaint> complaints = complaintRepository.findComplaintsByUserId(userId);
+        return complaints.stream()
+                .map(complaint -> modelMapper.map(complaint, ComplaintDTO.class))
+                .collect(Collectors.toList());
+    }
 
     @Override
-    public ComplaintDTO getComplaintById(Integer id) {
+    public FetchComplaintDTO getComplaintById(Integer id) {
         Complaint complaint = complaintRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Complaint not found"));
-        return modelMapper.map(complaint, ComplaintDTO.class);
+        
+        Crime crime = complaint.getCrime();  // Fetch crime entity
+
+        // Convert to DTOs
+        FetchComplaintDTO fetchComplaintDTO = modelMapper.map(complaint, FetchComplaintDTO.class);
+        CrimeDTO crimeDTO = modelMapper.map(crime, CrimeDTO.class);
+
+        fetchComplaintDTO.setCrime(crimeDTO);  // Set crime details in complaintDTO
+
+        return fetchComplaintDTO;
     }
 
     @Override

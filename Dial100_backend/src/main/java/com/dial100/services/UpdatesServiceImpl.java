@@ -22,6 +22,14 @@ public class UpdatesServiceImpl implements UpdatesService {
 	private ModelMapper modelMapper;
 
 	@Override
+    public List<UpdatesDTO> getUpdatesByComplaintId(Integer complaintId) {
+        List<Updates> updates = updatesRepository.findByComplaint_ComplaintId(complaintId);
+        return updates.stream()
+                      .map(update -> modelMapper.map(update, UpdatesDTO.class))
+                      .collect(Collectors.toList());
+    }
+	
+	@Override
 	public List<UpdatesDTO> getAllUpdates() {
 		List<Updates> updates = updatesRepository.findAll();
 		return updates.stream().map(update -> modelMapper.map(update, UpdatesDTO.class)).collect(Collectors.toList());

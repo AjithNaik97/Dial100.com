@@ -9,14 +9,30 @@ import ContactPage from './pages/Contact';
 import PlaintiffDashboardPage from './pages/PlaintiffDashboard';
 import ComplaintPage from './pages/Complaint';
 import AuthorityDashboardPage from './pages/AuthorityDashboard';
-import ProtectedRoute from './components/ProtectedRoute'; // Import ProtectedRoute
+import ViewComplaintsPage from './pages/ViewComplaints';
+import PlaintiffComplaintDetailsPage from './pages/PlaintiffComplaintDetails';
+import PlaintiffUpdateDetailsPage from './pages/PlaintiffUpdateDetails';
+import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 
 // Component to conditionally render the Navbar
 function ConditionalNavbar() {
   const location = useLocation();
-  const hideNavbarRoutes = ['/plaintiff-dashboard', '/register-complaint', '/authority-dashboard'];
-  const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
+  const hideNavbarPatterns = [
+    '/plaintiff-dashboard',
+    '/register-complaint',
+    '/authority-dashboard',
+    '/view-complaints',
+    /^\/plaintiff-complaint-details\/.+/,  // Pattern to match dynamic IDs
+    /^\/plaintiff-update-details\/.+/
+  ];
+
+  const shouldHideNavbar = hideNavbarPatterns.some(pattern =>
+    typeof pattern === 'string'
+      ? location.pathname === pattern
+      : pattern.test(location.pathname)
+  );
+
   return !shouldHideNavbar && <Navbar />;
 }
 
@@ -30,7 +46,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/contact" element={<ContactPage />} />
-          
+
           {/* Protected routes */}
           <Route
             path="/plaintiff-dashboard"
@@ -45,6 +61,30 @@ function App() {
             element={
               <ProtectedRoute requiredRole="PLAINTIFF">
                 <ComplaintPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/view-complaints"
+            element={
+              <ProtectedRoute requiredRole="PLAINTIFF">
+                <ViewComplaintsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/plaintiff-complaint-details/:complaintId"
+            element={
+              <ProtectedRoute requiredRole="PLAINTIFF">
+                <PlaintiffComplaintDetailsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/plaintiff-update-details/:complaintId"
+            element={
+              <ProtectedRoute requiredRole="PLAINTIFF">
+                <PlaintiffUpdateDetailsPage />
               </ProtectedRoute>
             }
           />

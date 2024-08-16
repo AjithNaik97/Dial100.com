@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,12 +18,19 @@ import com.dial100.dto.UpdatesDTO;
 import com.dial100.services.UpdatesService;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/updates")
 public class UpdatesController {
 
 	@Autowired
 	private UpdatesService updatesService;
 
+	@GetMapping("/complaint/{complaintId}")
+    public ResponseEntity<List<UpdatesDTO>> getUpdatesByComplaintId(@PathVariable Integer complaintId) {
+        List<UpdatesDTO> updates = updatesService.getUpdatesByComplaintId(complaintId);
+        return ResponseEntity.ok(updates);
+    }
+	
 	@GetMapping
 	public ResponseEntity<List<UpdatesDTO>> getAllUpdates() {
 		List<UpdatesDTO> updates = updatesService.getAllUpdates();
