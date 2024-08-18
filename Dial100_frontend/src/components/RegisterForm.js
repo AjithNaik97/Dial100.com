@@ -8,8 +8,8 @@ function RegisterForm() {
     phone: '',
     password: '',
     confirmPassword: '',
-    address: '', // Add address field
-    role: 'PLAINTIFF'
+    address: '',
+    role: 'PLAINTIFF',
   });
 
   const [errors, setErrors] = useState({});
@@ -22,12 +22,10 @@ function RegisterForm() {
   const validateForm = () => {
     let formErrors = {};
 
-    // Validate name
     if (!formData.name.trim()) {
       formErrors.name = 'Name is required';
     }
 
-    // Validate email
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
       formErrors.email = 'Email is required';
@@ -35,24 +33,20 @@ function RegisterForm() {
       formErrors.email = 'Invalid email format';
     }
 
-    // Validate phone
     if (!formData.phone.trim()) {
       formErrors.phone = 'Phone number is required';
     }
 
-    // Validate address
     if (!formData.address.trim()) {
       formErrors.address = 'Address is required';
     }
 
-    // Validate password
     if (!formData.password.trim()) {
       formErrors.password = 'Password is required';
     } else if (formData.password.length < 6) {
       formErrors.password = 'Password must be at least 6 characters long';
     }
 
-    // Validate confirm password
     if (!formData.confirmPassword.trim()) {
       formErrors.confirmPassword = 'Confirm Password is required';
     } else if (formData.password !== formData.confirmPassword) {
@@ -73,30 +67,29 @@ function RegisterForm() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(formData), // Include address in the request body
+          body: JSON.stringify(formData),
         });
 
         const result = await response.json();
 
         if (response.ok) {
-          setMessage(result.message); // Set success message
+          setMessage(result.message);
           console.log('User Registered:', result.data);
-          // Optionally reset form fields
           setFormData({
             name: '',
             email: '',
             phone: '',
             password: '',
             confirmPassword: '',
-            address: '', // Reset address field
-            role: 'PLAINTIFF'
+            address: '',
+            role: 'PLAINTIFF',
           });
         } else {
-          setMessage('Registration failed'); // Handle error message
+          setMessage('Registration failed');
           console.error('Registration failed:', result);
         }
       } catch (error) {
-        setMessage('Error submitting form'); // Handle network error
+        setMessage('Error submitting form');
         console.error('Error submitting form:', error);
       }
     }
@@ -104,22 +97,21 @@ function RegisterForm() {
 
   return (
     <div className="register-form-container">
-      <h2>REGISTRATION</h2>
       <form className="register-form" onSubmit={handleSubmit}>
+        <h2>REGISTRATION</h2>
+
         <input
           type="text"
           name="name"
           placeholder="Name"
           value={formData.name}
           onChange={handleChange}
-          required
         />
         {errors.name && <p className="error">{errors.name}</p>}
 
         <select name="role" value={formData.role} onChange={handleChange}>
           <option value="PLAINTIFF">Plaintiff</option>
           <option value="AUTHORITY">Authority</option>
-          <option value="ADMIN">Admin</option>
         </select>
 
         <input
@@ -128,7 +120,6 @@ function RegisterForm() {
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
-          required
         />
         {errors.email && <p className="error">{errors.email}</p>}
 
@@ -138,7 +129,6 @@ function RegisterForm() {
           placeholder="Phone"
           value={formData.phone}
           onChange={handleChange}
-          required
         />
         {errors.phone && <p className="error">{errors.phone}</p>}
 
@@ -148,7 +138,6 @@ function RegisterForm() {
           placeholder="Address"
           value={formData.address}
           onChange={handleChange}
-          required
         />
         {errors.address && <p className="error">{errors.address}</p>}
 
@@ -158,7 +147,6 @@ function RegisterForm() {
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
-          required
         />
         {errors.password && <p className="error">{errors.password}</p>}
 
@@ -168,13 +156,12 @@ function RegisterForm() {
           placeholder="Confirm Password"
           value={formData.confirmPassword}
           onChange={handleChange}
-          required
         />
         {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
 
         <button type="submit">Register</button>
 
-        {message && <p className="message">{message}</p>} {/* Display message */}
+        {message && <p className="message">{message}</p>}
       </form>
     </div>
   );

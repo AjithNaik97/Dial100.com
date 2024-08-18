@@ -1,5 +1,6 @@
 package com.dial100.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.dial100.entities.EvidenceType;
@@ -7,18 +8,23 @@ import com.dial100.entities.EvidenceType;
 public class EvidenceDTO {
 
 	private Integer evidenceId;
-	private EvidenceType evidenceType;
+	private String evidenceType;
 	private String filePath;
-	private LocalDateTime uploadDate;
-	
-	public EvidenceDTO() {}
 
-	public EvidenceDTO(Integer evidenceId, EvidenceType evidenceType, String filePath, LocalDateTime uploadDate) {
-		super();
+	private LocalDate uploadDate;
+
+	private Integer complaintId; // Add this field
+
+	public EvidenceDTO() {
+	}
+
+	public EvidenceDTO(Integer evidenceId, String evidenceType, String filePath, LocalDate uploadDate,
+			Integer complaintId) {
 		this.evidenceId = evidenceId;
 		this.evidenceType = evidenceType;
 		this.filePath = filePath;
 		this.uploadDate = uploadDate;
+		this.complaintId = complaintId;
 	}
 
 	public Integer getEvidenceId() {
@@ -29,11 +35,11 @@ public class EvidenceDTO {
 		this.evidenceId = evidenceId;
 	}
 
-	public EvidenceType getEvidenceType() {
+	public String getEvidenceType() {
 		return evidenceType;
 	}
 
-	public void setEvidenceType(EvidenceType evidenceType) {
+	public void setEvidenceType(String evidenceType) {
 		this.evidenceType = evidenceType;
 	}
 
@@ -45,12 +51,21 @@ public class EvidenceDTO {
 		this.filePath = filePath;
 	}
 
-	public LocalDateTime getUploadDate() {
+	public LocalDate getUploadDate() {
 		return uploadDate;
 	}
 
-	public void setUploadDate(LocalDateTime uploadDate) {
+	public void setUploadDate(LocalDate uploadDate) {
 		this.uploadDate = uploadDate;
 	}
 
+	public Integer getComplaintId() {
+		return complaintId;
+	}
+
+	public void setComplaintId(Integer complaintId) {
+		this.complaintId = complaintId;
+	}
+
+	
 }

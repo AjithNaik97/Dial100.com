@@ -46,27 +46,29 @@ function LoginForm() {
   };
 
   return (
-    <form className="login-form" onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={credentials.email}
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        value={credentials.password}
-        onChange={handleChange}
-        required
-      />
-      <button type="submit">Login</button>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-    </form>
+    <div className="login-form-container">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h2>LOGIN</h2>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={credentials.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={credentials.password}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit">Login</button>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+      </form>
+    </div>
   );
 }
 

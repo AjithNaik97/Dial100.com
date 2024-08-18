@@ -1,17 +1,18 @@
 package com.dial100.entities;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-
-import java.util.List;
 
 @Entity
 public class User {
@@ -31,7 +32,7 @@ public class User {
 	@JoinColumn(name = "user_id") // foreign key in the Complaint entity
 	private List<Complaint> complaints;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@JoinColumn(name = "authority_id") // foreign key in the Investigation entity
 	private List<Investigation> investigations;
 
@@ -110,5 +111,25 @@ public class User {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+	public List<Complaint> getComplaints() {
+		return complaints;
+	}
+	public void setComplaints(List<Complaint> complaints) {
+		this.complaints = complaints;
+	}
+	public List<Investigation> getInvestigations() {
+		return investigations;
+	}
+	public void setInvestigations(List<Investigation> investigations) {
+		this.investigations = investigations;
+	}
+	public List<Updates> getUpdates() {
+		return updates;
+	}
+	public void setUpdates(List<Updates> updates) {
+		this.updates = updates;
+	}
+	
+	
 
 }

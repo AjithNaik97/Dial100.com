@@ -2,6 +2,7 @@ package com.dial100.services;
 
 import java.util.List;
 
+import com.dial100.dto.InvestIDtoCompIDDTO;
 import com.dial100.dto.InvestigationDTO;
 
 public interface InvestigationService {
@@ -14,4 +15,7 @@ public interface InvestigationService {
 	InvestigationDTO updateInvestigation(Integer id, InvestigationDTO investigationDTO);
 
 	void deleteInvestigation(Integer id);
+
+	InvestIDtoCompIDDTO getComplaintId(Integer invid);
+	
 }

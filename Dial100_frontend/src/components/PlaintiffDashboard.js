@@ -17,7 +17,7 @@ function PlaintiffDashboard() {
   return (
     <div className="dashboard">
       <div className="side-nav">
-        <div className="logo">Logo</div>
+        <div className="logo">Dial100</div>
         <ul>
           <li><a href="/register-complaint">Register Complaint</a></li>
           <li><a href="/view-complaints">View Complaints</a></li>

@@ -14,4 +14,6 @@ public interface EvidenceService {
 	EvidenceDTO updateEvidence(Integer id, EvidenceDTO evidenceDTO);
 
 	void deleteEvidence(Integer id);
+
+	List<EvidenceDTO> getAllEvidencesByComplaintId(Integer complaintId);
 }

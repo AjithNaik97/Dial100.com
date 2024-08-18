@@ -26,7 +26,7 @@ public class UpdatesController {
 	private UpdatesService updatesService;
 
 	@GetMapping("/complaint/{complaintId}")
-    public ResponseEntity<List<UpdatesDTO>> getUpdatesByComplaintId(@PathVariable Integer complaintId) {
+    public ResponseEntity<List<UpdatesDTO>> getUpdatesByComplaintId(@PathVariable("complaintId") Integer complaintId) {
         List<UpdatesDTO> updates = updatesService.getUpdatesByComplaintId(complaintId);
         return ResponseEntity.ok(updates);
     }
@@ -45,6 +45,7 @@ public class UpdatesController {
 
 	@PostMapping
 	public ResponseEntity<UpdatesDTO> createUpdate(@RequestBody UpdatesDTO updatesDTO) {
+		System.out.println(updatesDTO.toString());
 		UpdatesDTO newUpdate = updatesService.createUpdate(updatesDTO);
 		return ResponseEntity.ok(newUpdate);
 	}

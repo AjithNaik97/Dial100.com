@@ -1,5 +1,6 @@
 package com.dial100.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -9,6 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Evidence {
@@ -19,9 +22,15 @@ public class Evidence {
 	@Column(name = "evidenceType")
 	private EvidenceType evidenceType;
 	private String filePath;
-	private LocalDateTime uploadDate;
+	private LocalDate uploadDate;
+	
+	@ManyToOne
+    @JoinColumn(name = "complaint_id") // Foreign key column in Complaint table
+    private Complaint complaint;
+	
+	public Evidence() {}
 
-	public Evidence(Integer evidenceId, EvidenceType evidenceType, String filePath, LocalDateTime uploadDate) {
+	public Evidence(Integer evidenceId, EvidenceType evidenceType, String filePath, LocalDate uploadDate) {
 		super();
 		this.evidenceId = evidenceId;
 		this.evidenceType = evidenceType;
@@ -53,11 +62,11 @@ public class Evidence {
 		this.filePath = filePath;
 	}
 
-	public LocalDateTime getUploadDate() {
+	public LocalDate getUploadDate() {
 		return uploadDate;
 	}
 
-	public void setUploadDate(LocalDateTime uploadDate) {
+	public void setUploadDate(LocalDate uploadDate) {
 		this.uploadDate = uploadDate;
 	}
 

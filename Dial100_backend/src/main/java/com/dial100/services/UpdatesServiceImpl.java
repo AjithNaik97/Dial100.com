@@ -44,9 +44,8 @@ public class UpdatesServiceImpl implements UpdatesService {
 
 	@Override
 	public UpdatesDTO createUpdate(UpdatesDTO updatesDTO) {
-		Updates update = modelMapper.map(updatesDTO, Updates.class);
-		Updates savedUpdate = updatesRepository.save(update);
-		return modelMapper.map(savedUpdate, UpdatesDTO.class);
+		updatesRepository.insertUpdateRecord(updatesDTO.getUpdateId(), updatesDTO.getRemarks(),updatesDTO.getStatus().name(),updatesDTO.getUpdateDate(),updatesDTO.getAuthorityId(),updatesDTO.getComplaintId());
+		return updatesDTO;
 	}
 
 	@Override

@@ -1,19 +1,18 @@
+// src/components/PlaintiffComplaintDetails.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/PlaintiffComplaintDetails.css';
 
 function PlaintiffComplaintDetails() {
   const navigate = useNavigate();
-  const { complaintId } = useParams(); // Retrieve the complaintId from the URL
-  const [complaint, setComplaint] = useState(null); // State to store complaint details
+  const { complaintId } = useParams();
+  const [complaint, setComplaint] = useState(null);
 
-  // Function to handle logout
   const handleLogout = () => {
     localStorage.removeItem('user');
     navigate('/');
   };
 
-  // Fetch complaint details on component mount
   useEffect(() => {
     fetch(`http://localhost:8080/api/complaints/${complaintId}`)
       .then((response) => response.json())
@@ -21,10 +20,14 @@ function PlaintiffComplaintDetails() {
       .catch((error) => console.error('Error fetching complaint details:', error));
   }, [complaintId]);
 
+  const handleAddEvidence = () => {
+    navigate(`/add-evidence/${complaintId}`);
+  };
+
   return (
     <div className="dashboard">
       <div className="side-nav">
-        <div className="logo">Logo</div>
+        <div className="logo">Dial100</div>
         <ul>
           <li><a href="/register-complaint">Register Complaint</a></li>
           <li><a href="/view-complaints">View Complaints</a></li>
@@ -51,6 +54,7 @@ function PlaintiffComplaintDetails() {
               <p><strong>Crime Type:</strong> {complaint.crime.crimeType}</p>
               <p><strong>Crime Description:</strong> {complaint.crime.description}</p>
               <p><strong>Penalty:</strong> {complaint.crime.penalty}</p>
+              <button className="button" onClick={handleAddEvidence}>Add Evidence</button>
             </div>
           ) : (
             <p>Loading complaint details...</p>

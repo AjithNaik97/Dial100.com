@@ -18,5 +18,7 @@ public interface ComplaintService {
 	
 	 List<ComplaintDTO> getComplaintsByUserId(Integer userId);
 	 
+	 List<ComplaintDTO> getNewComplaints();
+	 
 	 
 }

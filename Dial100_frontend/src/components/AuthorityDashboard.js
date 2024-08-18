@@ -17,10 +17,10 @@ function AuthorityDashboard() {
   return (
     <div className="dashboard">
       <div className="side-nav">
-        <div className="logo">Logo</div>
+        <div className="logo">Dial100</div>
         <ul>
-          <li><a href="/view-complaints">View Complaints</a></li>
-          <li><a href="/update-status">Update Complaint Status</a></li>
+          <li><a href="/all-new-complaints">All New Complaints</a></li>
+          <li><a href="/my-investigations">My Investigations</a></li>
         </ul>
       </div>
       

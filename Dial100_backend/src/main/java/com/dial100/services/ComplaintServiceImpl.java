@@ -11,11 +11,11 @@ import com.dial100.dto.ComplaintDTO;
 import com.dial100.dto.CrimeDTO;
 import com.dial100.dto.FetchComplaintDTO;
 import com.dial100.entities.Complaint;
-import com.dial100.entities.Crime; // Import the Crime entity
+import com.dial100.entities.Crime; 
 import com.dial100.entities.User;
 import com.dial100.exception.ResourceNotFoundException;
 import com.dial100.repositories.ComplaintRepository;
-import com.dial100.repositories.CrimeRepository; // Import CrimeRepository
+import com.dial100.repositories.CrimeRepository;
 import com.dial100.repositories.UserRepository;
 
 @Service
@@ -28,7 +28,7 @@ public class ComplaintServiceImpl implements ComplaintService {
     private UserRepository userRepository;
 
     @Autowired
-    private CrimeRepository crimeRepository; // Add CrimeRepository
+    private CrimeRepository crimeRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -49,38 +49,40 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
+    public List<ComplaintDTO> getNewComplaints() {
+        List<Complaint> complaints = complaintRepository.findComplaintsByStatusNew();
+        return complaints.stream()
+                .map(complaint -> modelMapper.map(complaint, ComplaintDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public FetchComplaintDTO getComplaintById(Integer id) {
         Complaint complaint = complaintRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Complaint not found"));
         
-        Crime crime = complaint.getCrime();  // Fetch crime entity
+        Crime crime = complaint.getCrime(); 
 
-        // Convert to DTOs
         FetchComplaintDTO fetchComplaintDTO = modelMapper.map(complaint, FetchComplaintDTO.class);
         CrimeDTO crimeDTO = modelMapper.map(crime, CrimeDTO.class);
 
-        fetchComplaintDTO.setCrime(crimeDTO);  // Set crime details in complaintDTO
+        fetchComplaintDTO.setCrime(crimeDTO);  
 
         return fetchComplaintDTO;
     }
 
     @Override
     public ComplaintDTO createComplaint(ComplaintDTO complaintDTO) {
-        // Fetch User entity from userId
         User user = userRepository.findById(complaintDTO.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        // Fetch Crime entity from crimeId
         Crime crime = crimeRepository.findById(complaintDTO.getCrimeId())
                 .orElseThrow(() -> new ResourceNotFoundException("Crime not found"));
 
-        // Map DTO to entity
         Complaint complaint = modelMapper.map(complaintDTO, Complaint.class);
-        // Set the user and crime entities
         complaint.setUser(user);
         complaint.setCrime(crime);
 
-        // Save the complaint
         Complaint savedComplaint = complaintRepository.save(complaint);
         return modelMapper.map(savedComplaint, ComplaintDTO.class);
     }
@@ -90,10 +92,8 @@ public class ComplaintServiceImpl implements ComplaintService {
         Complaint complaint = complaintRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Complaint not found"));
 
-        // Update entities as necessary
         modelMapper.map(complaintDTO, complaint);
         
-        // Fetch and set Crime entity if it was updated
         if (complaintDTO.getCrimeId() != null) {
             Crime crime = crimeRepository.findById(complaintDTO.getCrimeId())
                     .orElseThrow(() -> new ResourceNotFoundException("Crime not found"));

@@ -90,3 +90,26 @@
 .main-content p {
   font-size: 18px;
 }
+
+.button {
+  text-decoration: none;
+  color: #ffffff; /* Adjust color as needed */
+  background-color: #007bff; /* Example background color */
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-left: 10px;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #0056b3; /* Darker shade for hover effect */
+}
+
+/* Additional styling if needed */
+.button:focus {
+  outline: none;
+}

@@ -6,7 +6,7 @@ function ComplaintForm() {
   const [complaint, setComplaint] = useState({
     dateFiled: '',
     description: '',
-    status: '',
+    status: 'new',
     crimeId: '',
     crimeType: '',
     crimeDescription: '',
@@ -84,7 +84,7 @@ function ComplaintForm() {
   return (
     <div className="dashboard">
       <div className="side-nav">
-        <div className="logo">Logo</div>
+        <div className="logo">Dial100</div>
         <ul>
           <li><a href="/register-complaint">Register Complaint</a></li>
           <li><a href="/view-complaints">View Complaints</a></li>
@@ -131,7 +131,7 @@ function ComplaintForm() {
                 placeholder="Enter status"
                 value={complaint.status}
                 onChange={handleChange}
-                required
+                disabled
               />
             </div>
             <div className="form-group">

@@ -14,6 +14,15 @@ import PlaintiffComplaintDetailsPage from './pages/PlaintiffComplaintDetails';
 import PlaintiffUpdateDetailsPage from './pages/PlaintiffUpdateDetails';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
+import AddEvidencePage from './pages/AddEvidence';
+import AllNewComplaintsPage from './pages/AllNewComplaints';
+import AuthorityComplaintDetails from './components/AuthorityComplaintDetails';
+import AddInvestigateFormPage from './pages/AddInvestigateForm';
+import MyInvestigationsPage from './pages/MyInvestigations';
+import InvestigationDetailsPage from './pages/InvestigationDetails';
+import ViewEvidencesPage from './pages/ViewEvidences';
+import AddUpdatesFormPage from './pages/AddUpdatesForm';
+import ProfileComponentPage from './pages/ProfileComponent';
 
 // Component to conditionally render the Navbar
 function ConditionalNavbar() {
@@ -23,8 +32,17 @@ function ConditionalNavbar() {
     '/register-complaint',
     '/authority-dashboard',
     '/view-complaints',
+    '/profile',
     /^\/plaintiff-complaint-details\/.+/,  // Pattern to match dynamic IDs
-    /^\/plaintiff-update-details\/.+/
+    /^\/plaintiff-update-details\/.+/,
+    /^\/add-evidence\/.+/,
+    '/all-new-complaints',
+    /^\/authority-complaint-details\/.+/,
+    /^\/add-investigate\/.+/,
+    '/my-investigations',
+    /^\/investigationdetails\/.+/,
+    /^\/view-evidences\/.+/,
+    /^\/addupdatesform\/.+/
   ];
 
   const shouldHideNavbar = hideNavbarPatterns.some(pattern =>
@@ -46,6 +64,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/profile" element={<ProfileComponentPage />} />
+
 
           {/* Protected routes */}
           <Route
@@ -89,6 +109,14 @@ function App() {
             }
           />
           <Route
+            path="/add-evidence/:complaintId"
+            element={
+              <ProtectedRoute requiredRole="PLAINTIFF">
+                <AddEvidencePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/authority-dashboard"
             element={
               <ProtectedRoute requiredRole="AUTHORITY">
@@ -96,7 +124,63 @@ function App() {
               </ProtectedRoute>
             }
           />
-        </Routes>
+          <Route
+            path="/all-new-complaints"
+            element={
+              <ProtectedRoute requiredRole="AUTHORITY">
+                <AllNewComplaintsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/authority-complaint-details/:complaintId"
+            element={
+              <ProtectedRoute requiredRole="AUTHORITY">
+                <AuthorityComplaintDetails />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/add-investigate/:complaintId"
+            element={
+              <ProtectedRoute requiredRole="AUTHORITY">
+                <AddInvestigateFormPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/my-investigations"
+            element={
+              <ProtectedRoute requiredRole="AUTHORITY">
+                <MyInvestigationsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/investigationdetails/:investigationId"
+            element={
+              <ProtectedRoute requiredRole="AUTHORITY">
+                <InvestigationDetailsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/view-evidences/:complaintId"
+            element={
+              <ProtectedRoute requiredRole="AUTHORITY">
+                <ViewEvidencesPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/addupdatesform/:investigationId"
+            element={
+              <ProtectedRoute requiredRole="AUTHORITY">
+                <AddUpdatesFormPage />
+              </ProtectedRoute>
+            }
+          />
+          </Routes>
         <Footer />
       </div>
     </Router>
